@@ -1,0 +1,50 @@
+<header id="header">
+<div class="wrapper">
+    <!-- Sidebar Holder -->
+    <nav id="sidebar">
+       
+        <div class="sidebar-header">
+           <h3>Foto</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+                <img src="foto" class="rounded mx-auto d-block" alt="Responsive image">
+            <li>
+                <a data-toggle="modal" data-target="#perfilModal">Datos Personales</a>
+            </li>
+            <li>
+                <a data-toggle="modal" data-target="#reservasModal">Reservar!</a>
+            </li>
+            <li>
+                <a data-toggle="modal" data-target="#obrasModal">Obras</a>
+            </li>
+            <li>
+                <a data-toggle="modal" data-target="#reservasModal">Reservas</a>
+            </li>
+            <li>
+                <a data-toggle="modal" data-target="#horariosModal">Horarios</a>
+            </li>
+            <li>
+                <a data-toggle="modal" data-target="#salasModal">Salas</a>
+            </li>
+        </ul>
+   
+        <ul class="list-unstyled CTAs">
+            <li>
+                <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+            </li>
+            <li>
+                <a class="article" (click)="signOut()">SignOut</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- Page Content Holder -->
+    <div id="content">
+        <app-contenido></app-contenido>
+    </div>
+</div>
+</header>
+<app-reservas></app-reservas>
+<app-perfil></app-perfil>
+<app-obras></app-obras>
+
