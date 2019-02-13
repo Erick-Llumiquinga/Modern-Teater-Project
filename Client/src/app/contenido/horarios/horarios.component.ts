@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HorariosService } from './../../services/crud/horarios.service';
 
 @Component({
   selector: 'app-horarios',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HorariosComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(public horarioServices:HorariosService) { }
+  horarios = [];
+  horario = [];
+  Horario: String = '';
   ngOnInit() {
   }
 
+  getHorarios(){
+    this.horarioServices.getAll()
+    this.horarios = this.horarioServices.datos;
+    this.horarios.forEach(obj =>{
+      this.horario = this.horarios;
+    });
+    console.log('Despues del for ', this.horario);
+  }
 }

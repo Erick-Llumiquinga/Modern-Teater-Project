@@ -61,24 +61,36 @@ export class LoginComponent implements OnInit {
 
   signInWithGoogle(): void{
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.loginSocial();
   }
 
   signInWithFB(): void{
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.loginSocial();
   }
 
   signOut(): void{
     this.authService.signOut();
   }
 
-  guardarUsuarioSL(){
-    this.personas = [
-      this.user.photoUrl,
-      this.user.firstName,
-      this.user.lastName,
-      this.user.email
-    ];
-
-    return console.log(this.personas)
-  }
+  
+  loginSocial(){
+    this.busy = this.authDataServise.login(this.user.firstName, this.user.email)
+    .then(r =>{
+      sessionStorage.setItem('isLoggedin', 'true');
+      const userData = {id: r.id, nombre: r.nombre};
+      sessionStorage.setItem('Usuario', JSON.stringify(userData));
+      console.log('Sesion Iniciada')
+    }).catch(e =>{
+      console.log('No se envian los datos');
+      swal({
+        title: 'Iniciar Sesion', text: 'Credenciales Incorrectas', icon: 'error'
+      })
+      .then(response =>{
+        sessionStorage.clear();
+        this.router.navigate['/'];
+        console.log('el error persiste')
+      });
+    });
+    }
 }

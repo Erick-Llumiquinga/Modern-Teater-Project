@@ -13,7 +13,7 @@ import {el} from "@angular/platform-browser/testing/src/browser_util";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
+  user: SocialUser;
   nombre: String = '';
   apellido: String = '';
   correo: String = '';
@@ -23,6 +23,9 @@ export class RegisterComponent implements OnInit {
   constructor(public router:Router, public authDataServise:AuthServices, public authServices:AuthService) { }
 
   ngOnInit() {
+    this.authServices.authState.subscribe((user)=>{
+      this.user = user;
+    });
   }
 
   register() {
@@ -45,5 +48,33 @@ export class RegisterComponent implements OnInit {
       console.log('error al enviar datos campos vacios');
     }
   }
+
+  signInWithGoogle(): void{
+    this.authServices.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.registerSocial();
+  }
+
+  signInWithFB(): void{
+    this.authServices.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.registerSocial();
+  }
+
+  signOut(): void{
+    this.authServices.signOut();
+  }
+
+  
+  registerSocial() {
+      this.busy = this.authDataServise.register(this.user.firstName, this.user.lastName, this.user.email, this.user.lastName)
+        .then(r => {
+          swal({
+            title: 'Registrar', text: 'Registro Exitoso', icon: 'success'
+          });
+        }).catch(e => {
+          swal({
+            title: 'Registrar', text: 'Registro Fallido', icon: 'error'
+          });
+        });
+    }
 
 }

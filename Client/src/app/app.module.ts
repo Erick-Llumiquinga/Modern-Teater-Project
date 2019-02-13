@@ -14,9 +14,9 @@ import { LoginComponent } from './login/login.component';
 import { ReservasComponent } from './reservas/reservas.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { RegisterComponent } from './register/register.component';
-import { ObrasComponent } from './contenido/obras/obras.component';
 import { SalasComponent } from './contenido/salas/salas.component';
 import { HorariosComponent } from './contenido/horarios/horarios.component';
+import { ObrasComponent } from './contenido/obras/obras.component';
 
 
 
@@ -45,9 +45,9 @@ export function provideConfig(){
     ReservasComponent,
     PerfilComponent,
     RegisterComponent,
-    ObrasComponent,
     SalasComponent,
-    HorariosComponent
+    HorariosComponent,
+    ObrasComponent
     
   ],
   imports: [

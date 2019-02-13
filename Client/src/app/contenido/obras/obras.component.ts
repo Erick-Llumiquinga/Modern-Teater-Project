@@ -1,21 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { ObrasService} from "../../services/crud/obras.service";
+import { Obras } from './../../models/obras';
 
 @Component({
   selector: 'app-obras',
   templateUrl: './obras.component.html',
-styleUrls: []
+styleUrls: ['./obras.component.css']
 })
 export class ObrasComponent implements OnInit {
 
   nombre: string = '';
   detalles: string = '';
   busy: Promise<any>;
-  constructor(public obraService: ObrasService) { }
+  obras: Obras;
   data = [];
+  constructor(public obraService: ObrasService) { 
+    this.obras = new Obras();
+  }
+  
+  
   ngOnInit() {
-    this.nombre = '';
-    this.detalles = '';
+    this.getObra();
+  }
+
+  getObra() {
+    this.obraService.getAll();
   }
 
   crear(){
@@ -37,11 +46,5 @@ export class ObrasComponent implements OnInit {
       });
       console.log('error al enviar datos campos vacios');
     }
-  }
-
-
-  editar(){
-  this.obraService.getAll();
-  this.data = this.obraService.datos;
   }
 }
