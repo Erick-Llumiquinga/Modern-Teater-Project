@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./Server
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./Server:/var/www
+    working_dir: /var/www
+    command: php -S 0.0.0.0:8000 -t public
+
+  frontend:
+    build: ./Client
+    container_name: angular_app
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./Client:/app
+      - /app/node_modules
+    working_dir: /app
+    command: sh -c "npm install --legacy-peer-deps && ng serve --host 0.0.0.0 --poll=2000"
