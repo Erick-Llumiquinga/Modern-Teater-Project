@@ -27,6 +27,10 @@ $app->withFacades();
 
 $app->withEloquent();
 
+$app->configure('database');
+
+$app->register(Illuminate\Database\MigrationServiceProvider::class);
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -60,7 +64,8 @@ $app->singleton(
 */
 
 $app->middleware([
-    App\Http\Middleware\ExampleMiddleware::class
+    App\Http\Middleware\ExampleMiddleware::class,
+    App\Http\Middleware\CorsMiddleware::class
 ]);
 
 $app->routeMiddleware([
