@@ -7,8 +7,12 @@ RUN sed -i 's|deb.debian.org|archive.debian.org|g' /etc/apt/sources.list \
 
 # Install Dependencies
 RUN apt-get update && apt-get install -y \
-    git unzip curl libzip-dev \
-    && docker-php-ext-install zip
+    git \
+    unzip \
+    curl \
+    libzip-dev \
+    libpq-dev \
+    && docker-php-ext-install zip pdo pdo_pgsql
 
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer

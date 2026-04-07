@@ -3,12 +3,24 @@ version: '3.8'
 services:
   backend:
     build: ./Server
+    container_name: server_app
     ports:
       - "8000:8000"
     volumes:
       - ./Server:/var/www
     working_dir: /var/www
     command: php -S 0.0.0.0:8000 -t public
+
+  db:
+    image: postgres:14
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: theater
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
 
   frontend:
     build: ./Client

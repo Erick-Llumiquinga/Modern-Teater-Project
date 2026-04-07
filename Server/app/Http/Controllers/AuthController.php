@@ -23,7 +23,7 @@
                     'nombre'=>$data['nombre'],
                     'apellido'=>$data['apellido'],
                     'correo'=>$data['correo'],
-                    'clave'=>$data['clave']
+                    'clave' => Hash::make($data['clave'])
                 ]);
                 DB::commit();
             }
@@ -51,23 +51,21 @@
 
         function login(Request $request){
     
-                $data = $request->json()->all();
-                $correo = $data['correo'];
-                $clave = $data['clave'];
-                $usuario = Persona::where('correo',$correo)->first();
-                if(!$usuario){
-                    return response()->json(['error' => 'Credenciales Incorrectas'],400);
-                }
-                if($clave === $usuario->clave){
-
-                    return response()->json(
-                        ['id' => $usuario->id,
-                        'nombre' => $usuario->nombre],
-                        200);
-                }
-                else{
-                    return response()->json(['status' => 'Credenciales Incorrectas'],400);
-                }
+            $data = $request->json()->all();
+            $correo = $data['correo'];
+            $clave = $data['clave'];
+            $usuario = Persona::where('correo',$correo)->first();
+            if(!$usuario){
+                return response()->json(['error' => 'Credenciales Incorrectas'],400);
+            }
+            if (Hash::check($clave, $usuario->clave)) {
+                return response()->json([
+                    'id' => $usuario->id,
+                    'nombre' => $usuario->nombre
+                ], 200);
+            } else {
+                return response()->json(['error' => 'Credenciales incorrectas'], 400);
+            }
         }
 
         function loginAdmin(Request $request){
